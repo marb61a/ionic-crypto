@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import 'rxjs/add/operator/map';
 
 /*
   Generated class for the DataProvider provider.
@@ -9,9 +10,16 @@ import { Injectable } from '@angular/core';
 */
 @Injectable()
 export class DataProvider {
+  result:any;
 
-  constructor(public http: HttpClient) {
-    console.log('Hello DataProvider Provider');
+  constructor(public _http: HttpClient) {
+
   }
 
+  getCoins(){
+
+    // Crypto compare multi price
+    return this._http.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR")
+      .map(result => this.result = result)
+  }
 }
