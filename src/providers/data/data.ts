@@ -16,10 +16,13 @@ export class DataProvider {
 
   }
 
-  getCoins(){
+  getCoins(coins){
+    let coinlist = '';
+
+    coinlist = coins.join();
 
     // Crypto compare multi price
-    return this._http.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR")
+    return this._http.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms"+coinlist+"tsyms=USD,EUR")
       .map(result => this.result = result)
   }
 }
