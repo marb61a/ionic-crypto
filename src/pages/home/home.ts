@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  detailToggle = [];
   objectKeys = Object.keys;
   coins: Object;
   likedCoins = [];
@@ -50,6 +51,21 @@ export class HomePage {
   }
 
   coinDetails(coin, index){
+    if(this.detailToggle[index]){
+      this.detailToggle[index] = false;
+    } else {
+      this.detailToggle.fill(false);
+      this._data.getCoin(coin)
+        .subscribe(res => {
+          this.details = res['DISPLAY'][coin]['EUR'];
 
+          this.detailToggle[index] = true;
+
+          this._data.getChart(coin)
+            .subscribe(res => {
+              let coinHistory = res['Data'].map((a) => (a.close));
+            })
+        })
+    }
   }
 }
