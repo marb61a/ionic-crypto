@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  objectKeys = Object.keys;
   coins: Object;
   likedCoins = [];
 
@@ -17,6 +18,10 @@ export class HomePage {
 
   ionViewDidLoad(){
 
+  }
+
+  ionViewWillEnter(){
+    this.refreshCoins();
   }
 
   refreshCoins(){

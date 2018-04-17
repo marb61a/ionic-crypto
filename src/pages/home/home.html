@@ -1,14 +1,18 @@
 <ion-header>
-  <ion-navbar>
+  <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      <img src="assets/logo.svg" id="logo">
     </ion-title>
-  </ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-only onclick="showSearch()"></button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-list *ngIf="coins">
+    <ion-item *ngFor="let coin of objectKeys(coins)">
+      {{coin}}
+    </ion-item>
+  </ion-list>
 </ion-content>
