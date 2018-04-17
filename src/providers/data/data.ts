@@ -25,4 +25,14 @@ export class DataProvider {
     return this._http.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms="+coinlist+"&tsyms=USD,EUR")
       .map(result => this.result = result)
   }
+
+  getCoin(coin){
+    return this._http.get("https://min-api.cryptocompare.com/data/pricemultifull?fsyms="+coin+"&tsyms=USD,EUR")
+      .map(result => this.result = result)
+  }
+
+  getChart(coin){
+    return this._http.get("https://min-api.cryptocompare.com/data/histoday?fsym="+coin+"&tsym=USD,EUR&limit=30&aggregate=1")
+      .map(result => this.result = result);
+  }
 }

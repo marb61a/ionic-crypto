@@ -49,4 +49,7 @@ export class HomePage {
 
   }
 
+  coinDetails(coin, index){
+
+  }
 }

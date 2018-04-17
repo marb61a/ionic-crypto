@@ -31,12 +31,26 @@
 
   <ion-list *ngIf="coins">
     <ion-item-sliding *ngFor="let coin of objectKeys(coins); let i = index" (ionDrag)="swiped(i)">
-      <ion-item no-lines>
+      <ion-item (click)="coinDetails(coin,i)" no-lines>
         {{coin}}
         <ion-note item-end color="bluetxt">
           {{coins[coin].EUR | currency:'EUR':true}}
         </ion-note>
       </ion-item>
+      <ion-item-options>
+        <button ion-button (click)="removeCoin(coin)">
+          <ion-icon name="close" class="size"></ion-icon>
+        </button>
+      </ion-item-options>
     </ion-item-sliding>
+    <ion-item class="details" *ngIf="detailToggle[i]" no-lines>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
   </ion-list>
 </ion-content>
