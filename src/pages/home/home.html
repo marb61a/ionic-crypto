@@ -4,12 +4,23 @@
       <img src="assets/logo.svg" id="logo">
     </ion-title>
     <ion-buttons end>
-      <button ion-button icon-only onclick="showSearch()"></button>
+      <button ion-button icon-only onclick="showSearch()">
+        <ion-icon name="add"></ion-icon>
+        Add Coins
+      </button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <ion-list *ngIf="coins">
     <ion-item *ngFor="let coin of objectKeys(coins)">
       {{coin}}

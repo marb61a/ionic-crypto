@@ -22,7 +22,7 @@ export class DataProvider {
     coinlist = coins.join();
 
     // Crypto compare multi price
-    return this._http.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms"+coinlist+"tsyms=USD,EUR")
+    return this._http.get("https://min-api.cryptocompare.com/data/pricemulti?fsyms="+coinlist+"&tsyms=USD,EUR")
       .map(result => this.result = result)
   }
 }
