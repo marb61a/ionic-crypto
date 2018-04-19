@@ -42,30 +42,31 @@
           <ion-icon name="close" class="size"></ion-icon>
         </button>
       </ion-item-options>
+      <ion-item class="details" *ngIf="detailToggle[i]" no-lines>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <span class="label">Market Cap</span>
+              <span class="answer">{{ details.MKTCAP }}</span>
+            </ion-col>
+            <ion-col>
+              <span class="label">Change (24HR)</span>
+              <span class="answer">{{ details.CHANGE24HOUR }} ({{ details.CHANGEPCT24HOUR }}%)</span>
+            </ion-col>
+            <ion-col class="end">
+              <span class="label">High (24HR)</span>
+              <span class="answer">{{ details.HIGH24HOUR }}</span>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <br>
+              <span class="label">Price (30 Days)</span>
+              <canvas id="canvas{{i}}">{{ chart[i] }}</canvas>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
     </ion-item-sliding>
-    <ion-item class="details" *ngIf="detailToggle[i]" no-lines>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <span class="label">Market Cap</span>
-            <span class="answer">{{ details.MKTCAP }}</span>
-          </ion-col>
-          <ion-col>
-            <span class="label">Change (24HR)</span>
-            <span class="answer">{{ details.CHANGE24HOUR }} ({{details.CHANGEPCT24HOUR}}%)</span>
-          </ion-col>
-          <ion-col>
-            <span class="label">High (24HR)</span>
-            <span class="answer">{{ details.HIGH24HOUR }}</span>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>
-            <br>
-            <span class="label">Price (30 Days)</span>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
   </ion-list>
 </ion-content>

@@ -14,6 +14,7 @@ export class HomePage {
   coins: Object;
   details: Object;
   likedCoins = [];
+  chart = [];
 
   constructor(public navCtrl: NavController, private _data: DataProvider, private storage: Storage) {
 
@@ -52,10 +53,11 @@ export class HomePage {
 
   }
 
-  coinDetails(coin, index){
-    if(this.detailToggle[index]){
+  coinDetails(coin,index) {
+
+    if (this.detailToggle[index])
       this.detailToggle[index] = false;
-    } else {
+    else {
       this.detailToggle.fill(false);
       this._data.getCoin(coin)
         .subscribe(res => {
@@ -64,39 +66,49 @@ export class HomePage {
           this.detailToggle[index] = true;
 
           this._data.getChart(coin)
-            .subscribe(res => {
-              let coinHistory = res['Data'].map((a) => (a.close));
+          .subscribe(res => {
 
-              setTimeout(() => {
-                this.chart[index] = new Chart('canvas'+index, {
-                  type: 'line',
-                  data: {
-                    labels: coinHistory,
-                    datasets: [{
+            console.log(res);
+
+            let coinHistory = res['Data'].map((a) => (a.close));
+
+            setTimeout(()=> {
+              this.chart[index] = new Chart('canvas'+index, {
+                type: 'line',
+                data: {
+                  labels: coinHistory,
+                  datasets: [{
                       data: coinHistory,
-                      borderColor: '#3CBA9F',
+                      borderColor: "#3cba9f",
                       fill: false
                     }
-                  ],
-                  options: {
-                    tooltips: {
-                      callbacks: {
-                        label: function(tooltipItems, data){
-                          return "€" + tooltipItems.ylabel.toString();
+                  ]
+                },
+                options: {
+                  tooltips: {
+                    callbacks: {
+                        label: function(tooltipItems, data) {
+                            return "$" + tooltipItems.yLabel.toString();
                         }
                       }
                     },
                     responsive: true,
                     legend: {
                       display: false
-                    }
+                  },
+                  scales: {
+                    xAxes: [{
+                      display: false
+                    }],
+                    yAxes: [{
+                      display: false
+                    }],
                   }
-                  }
-                });
-
-              }, 250);
-            })
-        })
-    }
+                }
+              });
+            }, 250);
+          });
+        });
+      }
   }
 }
