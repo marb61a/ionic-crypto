@@ -111,4 +111,22 @@ export class HomePage {
         });
       }
   }
+
+  swiped(index){
+    this.detailToggle[index] = false;
+  }
+
+  removeCoin(coin){
+    this.detailToggle.fill(false);
+
+    this.likedCoins = this.likedCoins.filter(function(item){
+      return item !== coin;
+    });
+
+    this.storage.set('likedCoins', this.likedCoins);
+
+    setTimeout(() => {
+      this.refreshCoins();
+    }, 300);
+  }
 }
