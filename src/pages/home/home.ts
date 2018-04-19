@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { DataProvider } from '../../providers/data/data';
 import { Storage } from '@ionic/storage';
 import { Chart } from 'chart.js';
+import { LoadingController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -16,8 +17,8 @@ export class HomePage {
   likedCoins = [];
   chart = [];
 
-  constructor(public navCtrl: NavController, private _data: DataProvider, private storage: Storage) {
-
+  constructor(public navCtrl: NavController, private _data: DataProvider, private storage: Storage, public loading: LoadingController) {
+    this.storage.remove('likedCoins');
   }
 
   ionViewDidLoad(){
@@ -29,28 +30,36 @@ export class HomePage {
   }
 
   refreshCoins(){
-    this.storage.get('likedCoins').then((val) => {
-      // If the value has not been set
-      if(!val){
-        this.likedCoins.push('BTC', 'ETH', 'IOT');
-        this.storage.set('likedCoins', this.likedCoins);
-
-        this._data.getCoins(this.likedCoins)
-          .subscribe(res => {
-            this.coins = res;
-          });
-      }
-      // If the value is set
-      else {
-        this.likedCoins = val;
-
-        this._data.getCoins(this.likedCoins)
-          .subscribe(res => {
-            this.coins = res;
-          });
-      }
+    let loader = this.loading.create({
+      content: 'Refreshing...',
+      spinner: 'bubbles'
     });
 
+    loader.present().then(() => {
+      this.storage.get('likedCoins').then((val) => {
+        // If the value has not been set
+        if(!val){
+          this.likedCoins.push('BTC', 'ETH', 'IOT');
+          this.storage.set('likedCoins', this.likedCoins);
+
+          this._data.getCoins(this.likedCoins)
+            .subscribe(res => {
+              this.coins = res;
+              loader.dismiss();
+            });
+        }
+        // If the value is set
+        else {
+          this.likedCoins = val;
+
+          this._data.getCoins(this.likedCoins)
+            .subscribe(res => {
+              this.coins = res;
+              loader.dismiss();
+            });
+        }
+      });
+    });
   }
 
   coinDetails(coin,index) {
