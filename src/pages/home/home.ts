@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { DataProvider } from '../../providers/data/data';
 import { Storage } from '@ionic/storage';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'page-home',
@@ -11,6 +12,7 @@ export class HomePage {
   detailToggle = [];
   objectKeys = Object.keys;
   coins: Object;
+  details: Object;
   likedCoins = [];
 
   constructor(public navCtrl: NavController, private _data: DataProvider, private storage: Storage) {
@@ -64,6 +66,35 @@ export class HomePage {
           this._data.getChart(coin)
             .subscribe(res => {
               let coinHistory = res['Data'].map((a) => (a.close));
+
+              setTimeout(() => {
+                this.chart[index] = new Chart('canvas'+index, {
+                  type: 'line',
+                  data: {
+                    labels: coinHistory,
+                    datasets: [{
+                      data: coinHistory,
+                      borderColor: '#3CBA9F',
+                      fill: false
+                    }
+                  ],
+                  options: {
+                    tooltips: {
+                      callbacks: {
+                        label: function(tooltipItems, data){
+                          return "€" + tooltipItems.ylabel.toString();
+                        }
+                      }
+                    },
+                    responsive: true,
+                    legend: {
+                      display: false
+                    }
+                  }
+                  }
+                });
+
+              }, 250);
             })
         })
     }
