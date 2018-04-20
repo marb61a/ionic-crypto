@@ -19,6 +19,9 @@ import { LoadingController } from 'ionic-angular';
 export class SearchPage {
   objectKeys = Object.keys;
   likedCoins = [];
+  raw = [];
+  liked = [];
+  allcoins:any;
 
 
   constructor(private storage: Storage, private _data: DataProvider, public loading: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
@@ -26,7 +29,27 @@ export class SearchPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SearchPage');
+    let loader = this.loading.create({
+      content: 'Refreshing...',
+      spinner: 'bubbles'
+    });
+
+    loader.present().then(() => {
+      this.storage.get('likedCoins').then((val) => {
+        this.likedCoins = val;
+      });
+
+      this._data.allCoins()
+        .subscribe(res => {
+          this.raw = res['Data'];
+          this.allcoins = res['Data'];
+
+          loader.dismiss();
+          this.storage.get('likedCoins').then((val) => {
+            this.liked = val;
+          });
+        });
+    });
   }
 
 }
