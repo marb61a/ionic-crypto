@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { DataProvider } from '../../providers/data/data';
+import { Chart } from 'chart.js';
+import { LoadingController } from 'ionic-angular';
 
 /**
  * Generated class for the SearchPage page.
@@ -14,8 +17,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'search.html',
 })
 export class SearchPage {
+  objectKeys = Object.keys;
+  likedCoins = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  constructor(private storage: Storage, private _data: DataProvider, public loading: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
+
   }
 
   ionViewDidLoad() {

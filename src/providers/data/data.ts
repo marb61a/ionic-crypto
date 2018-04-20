@@ -35,4 +35,13 @@ export class DataProvider {
     return this._http.get("https://min-api.cryptocompare.com/data/histoday?fsym="+coin+"&tsym=EUR&limit=30&aggregate=1")
       .map(result => this.result = result);
   }
+
+  allCoins(){
+    let headers = new HttpHeaders()
+      .set('Access-Control-Allow-Origin', "*");
+
+    return this._http.get("https://www.cryptocompare.com/api/data/coinlist/", {headers: headers})
+      .map(result => this.result = result);
+
+  }
 }
