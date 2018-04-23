@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DataProvider } from '../../providers/data/data';
-import { Chart } from 'chart.js';
+import { Storage } from '@ionic/storage';
 import { LoadingController } from 'ionic-angular';
 
 /**
@@ -52,4 +52,22 @@ export class SearchPage {
     });
   }
 
+  addCoin(coin){
+    this.likedCoins.push(coin);
+    this.storage.set('likedCoins', this.likedCoins);
+  }
+
+  searchCoins(ev: any){
+    let val = ev.target.value;
+    this.allcoins = this.raw;
+
+    if(val && val.trin() != ''){
+      const filtered = Object.keys(this.allcoins)
+        .filter(key => val.toUpperCase().includes(key))
+        .reduce((obj, key) => {
+          obj[key] = this.allcoins(key);
+          return obj;
+        })
+    }
+  }
 }

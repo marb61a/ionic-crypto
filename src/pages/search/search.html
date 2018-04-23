@@ -7,12 +7,18 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>search</ion-title>
+    <ion-title>Add Coins</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <ion-searchbar (ionInput)="searchCoins($event)"></ion-searchbar>
 
+  <ion-list *ngIf="allCoins">
+    <button ion-item *ngFor="let coin of objectKeys(allcoins)" (click)="addCoin(coin)" class="coinbtn" no-lines>
+      {{coin}} - {{ allcoins[coin].CoinName }}
+    </button>
+  </ion-list>
 </ion-content>
