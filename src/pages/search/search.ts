@@ -61,13 +61,15 @@ export class SearchPage {
     let val = ev.target.value;
     this.allcoins = this.raw;
 
-    if(val && val.trin() != ''){
+    if(val && val.trim() != ''){
       const filtered = Object.keys(this.allcoins)
         .filter(key => val.toUpperCase().includes(key))
         .reduce((obj, key) => {
           obj[key] = this.allcoins(key);
           return obj;
-        })
+        }, {});
+
+      this.allcoins = filtered;
     }
   }
 }

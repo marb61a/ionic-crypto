@@ -19,6 +19,7 @@
   <ion-list *ngIf="allCoins">
     <button ion-item *ngFor="let coin of objectKeys(allcoins)" (click)="addCoin(coin)" class="coinbtn" no-lines>
       {{coin}} - {{ allcoins[coin].CoinName }}
+      <ion-icon name="checkmark-circle" color="primary" item-end *ngIf="likedCoins.indexOf(coin) != '-1'" color="light"></ion-icon>
     </button>
   </ion-list>
 </ion-content>
