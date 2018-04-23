@@ -30,7 +30,7 @@ export class SearchPage {
 
   ionViewDidLoad() {
     let loader = this.loading.create({
-      content: 'Refreshing...',
+      content: 'Refreshing..',
       spinner: 'bubbles'
     });
 
@@ -41,14 +41,16 @@ export class SearchPage {
 
       this._data.allCoins()
         .subscribe(res => {
+          console.log(res);
           this.raw = res['Data'];
           this.allcoins = res['Data'];
 
           loader.dismiss();
+
           this.storage.get('likedCoins').then((val) => {
             this.liked = val;
-          });
-        });
+          })
+        })
     });
   }
 

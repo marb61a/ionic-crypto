@@ -71,7 +71,7 @@ export class HomePage {
       this.detailToggle.fill(false);
       this._data.getCoin(coin)
         .subscribe(res => {
-          this.details = res['DISPLAY'][coin]['EUR'];
+          this.details = res['DISPLAY'][coin]['USD'];
 
           this.detailToggle[index] = true;
 
