@@ -4,11 +4,5 @@
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
-  },
-  "proxies": [
-    {
-      "path": "/coinlist",
-      "proxyUrl": "https://min-api.cryptocompare.com/data/all/coinlist"
-    }
-  ]
+  }
 }

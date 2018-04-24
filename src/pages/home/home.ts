@@ -64,14 +64,13 @@ export class HomePage {
   }
 
   coinDetails(coin,index) {
-
     if (this.detailToggle[index])
       this.detailToggle[index] = false;
     else {
       this.detailToggle.fill(false);
       this._data.getCoin(coin)
         .subscribe(res => {
-          this.details = res['DISPLAY'][coin]['USD'];
+          this.details = res['DISPLAY'][coin]['EUR'];
 
           this.detailToggle[index] = true;
 
